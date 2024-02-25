@@ -222,61 +222,33 @@
 
 // test();
 // Asynchronous Chaining
-// class User {
-//   constructor(public username: string) {}
-// }
+class User {
+  constructor(public username: string) {}
+}
 
-// class Priviledge {
-//   constructor(public level: number) {}
-// }
+class Priviledge {
+  constructor(public level: number) {}
+}
 
-// function logIn(username: string, password: string): Promise<User> {
-//   return new Promise<User>((resolve, reject) => {
-//     // do some async work
-//     if (password !== "password") reject("Invalid password");
-//     resolve(new User(username));
-//   });
-// }
+function logIn(username: string, password: string): Promise<User> {
+  return new Promise<User>((resolve, reject) => {
+    // do some async work
+    if (password !== "password") reject("Invalid password");
+    resolve(new User(username));
+  });
+}
 
-// function getPriviledges(user: User): Promise<Priviledge> {
-//   return new Promise<Priviledge>((resolve, reject) => {
-//     // do some async work
-//     if (user.username === "john") resolve(new Priviledge(1));
-//     reject("Invalid user");
-//   });
-// }
+function getPriviledges(user: User): Promise<Priviledge> {
+  return new Promise<Priviledge>((resolve, reject) => {
+    // do some async work
+    if (user.username === "john") resolve(new Priviledge(1));
+    reject("Invalid user");
+  });
+}
 
-// const test = async () => {
-//   const priviledges = await logIn("john", "password").then(getPriviledges);
-//   console.log(priviledges); // Priviledge { level: 1 }
-// };
+const test = async () => {
+  const priviledges = await logIn("john", "password").then(getPriviledges);
+  console.log(priviledges); // Priviledge { level: 1 }
+};
 
-// test();
-
-// class User {
-//   constructor(public username: string, public isAnonymous: boolean = false) {}
-// }
-
-// class AnonymousUser extends User {
-//   constructor() {
-//     super("anonymous", true);
-//   }
-// }
-
-// function logIn(username: string, password: string): Promise<User> {
-//   return new Promise<User>((resolve, reject) => {
-//     // do some async work
-//     if (password !== "password") reject("Invalid password");
-//     resolve(new User(username));
-//   });
-// }
-
-// const test = async () => {
-//   const user = await logIn("john", "wrong-password").catch((err) => {
-//     console.log(err);
-//     return new AnonymousUser();
-//   });
-//   console.log(user); // AnonymousUser { username: 'anonymous', isAnonymous: true }
-// };
-
-// test();
+test();

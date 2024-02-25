@@ -156,127 +156,39 @@
 // console.log(redCar.wheels); // 4
 // console.log(redCar.color); // Color.Red
 
-// class Person {
-//   constructor(public name: string) {}
-// }
+class Person {
+  constructor(public name: string) {}
+}
 
-// class Employee extends Person {
-//   constructor(name: string, protected department: string) {
-//     super(name);
-//   }
-// }
+class Employee extends Person {
+  constructor(name: string, protected department: string) {
+    super(name);
+  }
+}
 
-// class Manager extends Employee {
-//   constructor(name: string, department: string, private reports: Employee[]) {
-//     super(name, department);
-//   }
-//   // this exposes an aspect of an otherwise private field
-//   // to the public interface of the class
-//   reportCount: number = this.reports.length;
-//   describe() {
-//     console.log(`Manager: ${this.name}`);
-//     console.log(`Department: ${this.department}`);
-//     console.log(`Reports: ${this.reportCount}`);
-//   }
-// }
+class Manager extends Employee {
+  constructor(name: string, department: string, private reports: Employee[]) {
+    super(name, department);
+  }
+  // this exposes an aspect of an otherwise private field
+  // to the public interface of the class
+  reportCount: number = this.reports.length;
+  describe() {
+    console.log(`Manager: ${this.name}`);
+    console.log(`Department: ${this.department}`);
+    console.log(`Reports: ${this.reportCount}`);
+  }
+}
 
-// const manager = new Manager("Alice", "Sales", [
-//   new Employee("Bob", "Sales"),
-//   new Employee("Eve", "Sales"),
-// ]);
+const manager = new Manager("Alice", "Sales", [
+  new Employee("Bob", "Sales"),
+  new Employee("Eve", "Sales"),
+]);
 
+manager
 
+// not accessible outside the class
+// console.log(manager.reports); // error: this wont' compile
 
-// // not accessible outside the class
-// // console.log(manager.reports); // error: this wont' compile
-
-// manager.describe();
-// console.log(manager.reportCount);
-
-//PROMISES
-// class User {
-//   constructor(public username: string) {}
-// }
-
-// function logIn(username: string, password: string): Promise<User> {
-//   return new Promise<User>((resolve, reject) => {
-//     // do some async work
-//     if (password !== "password") reject("Invalid password");
-//     resolve(new User(username));
-//   });
-// }
-
-// const test = async () => {
-//   try {
-//     // correct password
-//     const user = await logIn("john", "password");
-//     console.log(user); // User { username: 'john' }
-//     // incorrect password, will throw error
-//     const user2 = await logIn("john", "password2");
-//     console.log(user2);
-//   } catch (error) {
-//     // error from `user2` creation
-//     console.log(error);
-//   }
-// };
-
-// test();
-// Asynchronous Chaining
-// class User {
-//   constructor(public username: string) {}
-// }
-
-// class Priviledge {
-//   constructor(public level: number) {}
-// }
-
-// function logIn(username: string, password: string): Promise<User> {
-//   return new Promise<User>((resolve, reject) => {
-//     // do some async work
-//     if (password !== "password") reject("Invalid password");
-//     resolve(new User(username));
-//   });
-// }
-
-// function getPriviledges(user: User): Promise<Priviledge> {
-//   return new Promise<Priviledge>((resolve, reject) => {
-//     // do some async work
-//     if (user.username === "john") resolve(new Priviledge(1));
-//     reject("Invalid user");
-//   });
-// }
-
-// const test = async () => {
-//   const priviledges = await logIn("john", "password").then(getPriviledges);
-//   console.log(priviledges); // Priviledge { level: 1 }
-// };
-
-// test();
-
-// class User {
-//   constructor(public username: string, public isAnonymous: boolean = false) {}
-// }
-
-// class AnonymousUser extends User {
-//   constructor() {
-//     super("anonymous", true);
-//   }
-// }
-
-// function logIn(username: string, password: string): Promise<User> {
-//   return new Promise<User>((resolve, reject) => {
-//     // do some async work
-//     if (password !== "password") reject("Invalid password");
-//     resolve(new User(username));
-//   });
-// }
-
-// const test = async () => {
-//   const user = await logIn("john", "wrong-password").catch((err) => {
-//     console.log(err);
-//     return new AnonymousUser();
-//   });
-//   console.log(user); // AnonymousUser { username: 'anonymous', isAnonymous: true }
-// };
-
-// test();
+manager.describe();
+console.log(manager.reportCount);
